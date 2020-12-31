@@ -187,7 +187,7 @@ namespace Genshin_WPF
                 if (wParam == (IntPtr)0x0) // 그 키의 ID가 0이면
                 {
                     Debug.WriteLine("Home press");
-                    Task.Run(() => ChangeVolume(0.80f, 0.00f));
+                    Task.Run(() => ChangeVolume(0.80f, 0.00f));//
                 }
                 if (wParam == (IntPtr)0x1) // 그 키의 ID가 1이면
                 {
