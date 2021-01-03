@@ -277,6 +277,8 @@ namespace Genshin_WPF
         private void slider1_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             lblVolume.Content = slider1.Value.ToString(".\\%");
+            int i = 1;
+            i++;
         }
     }
 }
