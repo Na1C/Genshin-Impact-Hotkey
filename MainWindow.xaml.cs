@@ -178,6 +178,8 @@ namespace Genshin_WPF
 
             RegisterHotKey(_windowHandle, 0, MOD_NONE, VK_HOME);
             RegisterHotKey(_windowHandle, 1, MOD_NONE, VK_END);
+            slider1.Maximum = 100;
+            slider1.Minimum = 5.01;
         }
 
         private IntPtr HwndHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
@@ -187,7 +189,7 @@ namespace Genshin_WPF
                 if (wParam == (IntPtr)0x0) // 그 키의 ID가 0이면
                 {
                     Debug.WriteLine("Home press");
-                    Task.Run(() => ChangeVolume(0.80f, 0.00f));//
+                    Task.Run(() => ChangeVolume(0.00f));//
                 }
                 if (wParam == (IntPtr)0x1) // 그 키의 ID가 1이면
                 {
@@ -215,8 +217,9 @@ namespace Genshin_WPF
             Task.Run(() => ChangeVolume());
         }
 
-        private void ChangeVolume(float fOn = 0.10f, float fMute = 0.03f)
+        private void ChangeVolume(float fMute = 0.03f)
         {
+            float volume=0;
             using (var sessionManager = GetDefaultAudioSessionManager2(DataFlow.Render))
             {
                 using (var sessionEnumerator = sessionManager.GetSessionEnumerator())
@@ -240,12 +243,14 @@ namespace Genshin_WPF
                                 }
                                 else
                                 {
-                                    simpleVolume.MasterVolume = fOn;
                                     this.Dispatcher.Invoke(() =>
                                     {
                                         lblMute.Content = "음소거 (OFF상태) Home";
                                         MainW.Background = Brushes.Tomato;
+                                        volume = (float)slider1.Value / 100f;
                                     });
+                                    simpleVolume.MasterVolume = volume;
+
                                     //lblParty.Content = "음소거 (OFF상태) F1";
                                 }
 
@@ -269,6 +274,9 @@ namespace Genshin_WPF
             }
         }
 
-
+        private void slider1_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            lblVolume.Content = slider1.Value.ToString(".\\%");
+        }
     }
 }
