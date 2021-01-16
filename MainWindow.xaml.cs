@@ -25,8 +25,8 @@ namespace Genshin_WPF
         [DllImport("user32.dll", SetLastError = true)]
         static extern uint SendInput(uint nInputs, ref INPUT pInputs, int cbSize);
 
-
-
+        float m_volume = 0.5f;
+        bool m_Init = true;
         [StructLayout(LayoutKind.Sequential)]
         struct INPUT
         {
@@ -167,6 +167,7 @@ namespace Genshin_WPF
         public MainWindow()
         {
             InitializeComponent();
+            m_volume = Properties.Settings.Default.SaveVol;
             //KListener.KeyDown += KListener_KeyDown;
 
         }
@@ -180,6 +181,10 @@ namespace Genshin_WPF
             RegisterHotKey(_windowHandle, 1, MOD_NONE, VK_END);
             slider1.Maximum = 100;
             slider1.Minimum = 5.01;
+            m_Init = true;
+            slider1.Value = m_volume * 100;
+            this.Left = 1920;
+            this.Top = 0;
         }
 
         private IntPtr HwndHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
@@ -195,7 +200,7 @@ namespace Genshin_WPF
                 {
                     Debug.WriteLine("END press");
                     SendKeyBoradKey(VK_ESC);
-                    Thread.Sleep(1000);
+                    Thread.Sleep(700);
                     ClickLeftMouseButton(350, 410);
 
                 }
@@ -209,6 +214,8 @@ namespace Genshin_WPF
             _source.RemoveHook(HwndHook);
             UnregisterHotKey(_windowHandle, HOTKEY_ID);
             base.OnClosed(e);
+            Properties.Settings.Default.SaveVol = m_volume;
+            Properties.Settings.Default.Save();
         }
 
 
@@ -217,9 +224,10 @@ namespace Genshin_WPF
             Task.Run(() => ChangeVolume());
         }
 
-        private void ChangeVolume(float fMute = 0.03f)
+        private void ChangeVolume(float fChangeVol = 0.03f)
         {
-            float volume=0;
+            float volume = 0;
+            m_volume = fChangeVol;
             using (var sessionManager = GetDefaultAudioSessionManager2(DataFlow.Render))
             {
                 using (var sessionEnumerator = sessionManager.GetSessionEnumerator())
@@ -233,7 +241,7 @@ namespace Genshin_WPF
                             {
                                 if (simpleVolume.MasterVolume >= 0.05f)
                                 {
-                                    simpleVolume.MasterVolume = fMute;
+                                    simpleVolume.MasterVolume = fChangeVol;
                                     this.Dispatcher.Invoke(() =>
                                     {
                                         lblMute.Content = "음소거 (ON상태) Home";
@@ -247,9 +255,10 @@ namespace Genshin_WPF
                                     {
                                         lblMute.Content = "음소거 (OFF상태) Home";
                                         MainW.Background = Brushes.Tomato;
+                                        m_volume = (float)slider1.Value / 100f;
                                         volume = (float)slider1.Value / 100f;
                                     });
-                                    simpleVolume.MasterVolume = volume;
+                                    simpleVolume.MasterVolume = m_volume;
 
                                     //lblParty.Content = "음소거 (OFF상태) F1";
                                 }
@@ -276,9 +285,15 @@ namespace Genshin_WPF
 
         private void slider1_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+            if(m_Init == true)
+            {
+                slider1.Value = m_volume*100;
+                m_Init = false;
+            }
             lblVolume.Content = slider1.Value.ToString(".\\%");
-            int i = 1;
-            i++;
+            m_volume = (float)slider1.Value / 100.0f;
+            Task.Run(() => ChangeVolume(m_volume));
+
         }
     }
 }
