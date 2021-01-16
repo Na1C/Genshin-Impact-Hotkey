@@ -8,8 +8,8 @@
         Loaded="MainW_Loaded"
         Title="Help" Height="114.078" Width="332.903" ResizeMode="CanMinimize" FontSize="14.667" Background="White" x:Name="MainW" WindowStyle="ToolWindow">
     <Grid Margin="10,10,0,0" Height="61" VerticalAlignment="Top" HorizontalAlignment="Left" Width="119">
-        <Label x:Name="lblMute" Content="음소거 Home" HorizontalAlignment="Left" VerticalAlignment="Top" Width="119"/>
-        <Label x:Name="lblParty" Content="파티 설정 End" HorizontalAlignment="Left" Margin="0,35,0,-4" VerticalAlignment="Top" RenderTransformOrigin="-0.407,2.012"/>
+        <Label x:Name="lblMute" Content="음소거 *" HorizontalAlignment="Left" VerticalAlignment="Top" Width="119"/>
+        <Label x:Name="lblParty" Content="파티 설정 /" HorizontalAlignment="Left" Margin="0,35,0,-4" VerticalAlignment="Top" RenderTransformOrigin="-0.407,2.012"/>
         <Button Visibility="Hidden" x:Name="button" Content="Button" HorizontalAlignment="Left" Height="100" Margin="121,78,0,-117" VerticalAlignment="Top" Width="75" Click="button_Click"/>
         <Slider x:Name="slider1" HorizontalAlignment="Left" Margin="194,7,-185,0" VerticalAlignment="Top" Width="110" ValueChanged="slider1_ValueChanged"/>
         <Label x:Name="lblVolume" HorizontalContentAlignment="Center" Content="10"  HorizontalAlignment="Right" Height="28" Margin="126,2,-57,0" VerticalAlignment="Top" Width="50" />

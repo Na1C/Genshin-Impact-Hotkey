@@ -160,6 +160,8 @@ namespace Genshin_WPF
         private const int VK_ESC = 0x1B;
         private const int VK_HOME = 0x24;
         private const int VK_END = 0x23;
+        private const int VK_MULTIPLY = 0x6A;
+        private const int VK_DIVIDE = 0x6A;
         KeyboardListener KListener = new KeyboardListener();
 
         private IntPtr _windowHandle;
@@ -179,8 +181,8 @@ namespace Genshin_WPF
             _source = HwndSource.FromHwnd(new WindowInteropHelper(this).Handle);
             _source.AddHook(HwndHook);
 
-            RegisterHotKey(_windowHandle, 0, MOD_NONE, VK_HOME);
-            RegisterHotKey(_windowHandle, 1, MOD_NONE, VK_END);
+            RegisterHotKey(_windowHandle, 0, MOD_NONE, VK_MULTIPLY);
+            RegisterHotKey(_windowHandle, 1, MOD_NONE, VK_DIVIDE);
             slider1.Maximum = 100;
             slider1.Minimum = 5.01;
             m_Init = true;
