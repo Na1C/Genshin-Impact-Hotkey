@@ -161,7 +161,7 @@ namespace Genshin_WPF
         private const int VK_HOME = 0x24;
         private const int VK_END = 0x23;
         private const int VK_MULTIPLY = 0x6A;
-        private const int VK_DIVIDE = 0x6A;
+        private const int VK_DIVIDE = 0x6F;
         KeyboardListener KListener = new KeyboardListener();
 
         private IntPtr _windowHandle;
