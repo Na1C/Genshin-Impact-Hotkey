@@ -5,5 +5,11 @@
     <Setting Name="SaveVol" Type="System.Single" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
+    <Setting Name="windowLeft" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="windowTop" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

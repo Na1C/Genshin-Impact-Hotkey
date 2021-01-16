@@ -169,6 +169,8 @@ namespace Genshin_WPF
             InitializeComponent();
             m_volume = Properties.Settings.Default.SaveVol;
             //KListener.KeyDown += KListener_KeyDown;
+            this.Left = Properties.Settings.Default.windowLeft;
+            this.Top = Properties.Settings.Default.windowTop;
 
         }
         private void MainW_Loaded(object sender, RoutedEventArgs e)
@@ -183,8 +185,7 @@ namespace Genshin_WPF
             slider1.Minimum = 5.01;
             m_Init = true;
             slider1.Value = m_volume * 100;
-            this.Left = 1920;
-            this.Top = 0;
+            
         }
 
         private IntPtr HwndHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
@@ -215,6 +216,8 @@ namespace Genshin_WPF
             UnregisterHotKey(_windowHandle, HOTKEY_ID);
             base.OnClosed(e);
             Properties.Settings.Default.SaveVol = m_volume;
+            Properties.Settings.Default.windowLeft = this.Left;
+            Properties.Settings.Default.windowTop = this.Top;
             Properties.Settings.Default.Save();
         }
 

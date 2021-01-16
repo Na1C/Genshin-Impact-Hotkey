@@ -34,5 +34,29 @@ namespace Genshin_WPF.Properties {
                 this["SaveVol"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double windowLeft {
+            get {
+                return ((double)(this["windowLeft"]));
+            }
+            set {
+                this["windowLeft"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double windowTop {
+            get {
+                return ((double)(this["windowTop"]));
+            }
+            set {
+                this["windowTop"] = value;
+            }
+        }
     }
 }
